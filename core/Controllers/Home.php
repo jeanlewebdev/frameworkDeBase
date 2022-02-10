@@ -46,4 +46,26 @@ class Home extends AbstractController
         // "elements" => $elements
         ]);
     }
+
+    public function upload()
+    {
+        if(!empty($_POST['upload']) && $_POST['upload'] == 'sent'){
+
+
+             $fichierTemporaire = $_FILES['monImage']['tmp_name'];
+
+            $extension = pathinfo($_FILES['monImage']['name'], PATHINFO_EXTENSION);
+
+             $nomDuFichier = uniqid().".".$extension;
+             echo "<hr>";
+             echo $fichierTemporaire;     
+
+            move_uploaded_file($fichierTemporaire, dirname(__DIR__)."/../images/".$nomDuFichier);
+
+
+        }
+       
+
+        return $this->render("home/upload", ["pageTitle"=>"upload"]);
+    }
 }

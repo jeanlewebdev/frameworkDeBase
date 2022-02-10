@@ -4,6 +4,7 @@ namespace Database;
 class PdoMySQL 
 {
 
+    public static $currentPdo = null;
 
     /**
     * Retourne un objet PDO pour intéragir avec la base de données
@@ -13,13 +14,17 @@ class PdoMySQL
     * 
     */
  public static function getPdo():\PDO{
+
+     if(self::$currentPdo === null){
+
+         self::$currentPdo = new \PDO("mysql:host=localhost;dbname=NOMDELADATABASE;charset=utf8", "NOMUTILISATEUR","PASSWORD", [
+             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+             \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ
+         ]);
+     }
+
    
-           $pdo = new \PDO("mysql:host=localhost;dbname=nomDeLaDB;charset=utf8", "user","password", [
-                   \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                   \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ
-           ]);
-   
-           return $pdo;
+           return self::$currentPdo;
    
    }
 }

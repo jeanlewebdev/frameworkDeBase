@@ -12,23 +12,36 @@
 <body>
 
 <nav class="navbar nav-expand-lg navbar-light bg-dark mb-5">
-    <a href="/hb/bistrot" class="navbar-brand">BASE FRAMEWORK</a>
+    <a href="/hb/cyclisterie" class="navbar-brand">BASE FRAMEWORK</a>
     <ul>
        <!--  <li class="nav-item"><a href="?type=cocktail&action=new" class="btn btn-primary">Create Cocktail</a></li>
         <li class="nav-item"><a href="?type=sandwich&action=index" class="btn btn-primary">sandwiches</a></li> -->
+<?php if(isset($_SESSION['user'])){ ?>
+
+    <li class="nav-item"><a href="/" class="btn btn-warning"><?= $_SESSION['user']['displayName'] ?></a></li>
+
+
+<?php } ?>
+
+            <li class="nav-item"><a href="?type=user&action=signout" class="btn btn-danger">Sign out</a></li>
+
+
+            <li class="nav-item"><a href="?type=user&action=signup" class="btn btn-secondary">Sign up</a></li>
+            <li class="nav-item"><a href="?type=user&action=signin" class="btn btn-primary">Sign in</a></li>
+
+
+
+
     </ul>
 
 </nav>
-<div class="alert alert-warning alert-dismissible fade <?php if($_GET['info']=='deleted'){ echo"show";}?>" role="alert">
-  <strong>Erreur</strong> Je n'ai pas pu supprimer ce cocktail car il n'existe pas, petit malin.
+<div class="alert alert-warning alert-dismissible fade <?php if(isset($_GET['info'])){ echo 'show';}?>" role="alert">
+  <?=$_GET['info'] ?>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-<div class="alert alert-warning alert-dismissible fade <?php if($_GET['info']=='noId'){ echo"show";}?>" role="alert">
-  <strong>Erreur</strong> ce cocktail n'existe pas, petit malin.
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
+
 <div class="container">
-            
+
 
             <?=  $pageContent ?>
 
